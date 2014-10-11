@@ -1,4 +1,15 @@
 = form_for @category do |f|
+  #errors_expanations
+    - if @category.errors.any?
+      p
+        = pluralize(@category.errors.count, 'error')
+        |  was found
+
+      ul
+        - @category.errors.full_messages.each do |msg|
+          li 
+            = msg 
+
   .field
     = f.label :title
     = f.text_field :title
