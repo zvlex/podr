@@ -1,9 +1,13 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :category do
-    title "MyString"
-    description "MyText"
-    user nil
+    title "RubyonRails"
+    description "Ruby Framework"
+    user_id { rand(21) }
+
+    factory :invalid_category do
+      title nil
+      description nil
+      user_id nil
+    end
   end
 end
