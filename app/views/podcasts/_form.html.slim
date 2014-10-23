@@ -1,0 +1,18 @@
+= form_for @podcast do |f|
+  #error_expanations
+    - if @podcast.errors.any?
+      p 
+        = pluralize(@podcast.errors.count, 'error')
+          | was found
+      ul
+        - @podcast.errors.full_messages.each do |msg|
+          li
+            = msg
+  .field
+    = f.label :url
+    = f.text_field :url
+  .field
+    = f.label :category
+    = f.collection_select :category_id, current_user.categories, :id, :title, prompt: true
+  .action
+    = f.submit
