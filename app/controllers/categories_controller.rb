@@ -1,11 +1,12 @@
 class CategoriesController < ApplicationController
+  before_action :verify_access, only: [:show, :edit, :update, :destroy]
   
   def index
-    @categories = Category.find_each
+    @categories = current_user.categories
   end
 
   def show
-    @category = Category.find(params[:id])
+    @category = current_user.categories.find(params[:id])
   end
 
   def new
@@ -13,7 +14,7 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @category = Category.find(params[:id])
+    @category = current_user.categories.find(params[:id])
   end
 
   def create
@@ -27,7 +28,7 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    @category = Category.find(params[:id])
+    @category = current_user.categories.find(params[:id])
     if @category.update(category_params)
       flash[:success] = 'Category updated'
       redirect_to @category
@@ -37,7 +38,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find(params[:id])
+    @category = current_user.categories.find(params[:id])
     @category.destroy
     redirect_to categories_path
   end
@@ -45,5 +46,10 @@ class CategoriesController < ApplicationController
 private
   def category_params
     params.require(:category).permit(:title, :description)
+  end
+
+  def verify_access
+    @category = current_user.categories.find_by_id(params[:id])
+    redirect_to categories_path if @category.nil?
   end
 end
