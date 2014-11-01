@@ -36,14 +36,14 @@ ActiveRecord::Schema.define(version: 20141014123816) do
     t.string   "owners_email"
     t.string   "atom_link"
     t.text     "keywords"
-    t.integer  "age"
+    t.integer  "user_id"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "podcasts", ["atom_link"], name: "index_podcasts_on_atom_link", unique: true, using: :btree
   add_index "podcasts", ["category_id"], name: "index_podcasts_on_category_id", using: :btree
+  add_index "podcasts", ["user_id"], name: "index_podcasts_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "first_name"

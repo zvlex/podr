@@ -1,2 +1,7 @@
 .action
   = link_to 'Add Podcast', new_podcast_path
+br
+.pod
+  - @podcasts.each do |podcast|
+    div
+      = link_to podcast.title, podcast_path(podcast)

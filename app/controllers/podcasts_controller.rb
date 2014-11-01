@@ -1,7 +1,11 @@
 class PodcastsController < ApplicationController
-  def index; end
+  def index
+    @podcasts = current_user.podcasts
+  end
 
-  def show; end
+  def show
+    @podcast = current_user.podcasts.find(params[:id])
+  end
 
   def new
     @podcast = Podcast.new
@@ -11,7 +15,7 @@ class PodcastsController < ApplicationController
   end
 
   def create
-    @podcast = FetchPodcast.new(podcast_params).fetch_podcast_info
+    @podcast = FetchPodcast.new(podcast_params, current_user).fetch_podcast_info
     if @podcast.valid?
       flash[:success] = 'Successfully added'
       redirect_to @podcast
@@ -31,6 +35,9 @@ class PodcastsController < ApplicationController
   end
 
   def destroy
+    @podcast = current_user.podcasts.find(params[:id])
+    @podcast.destroy
+    redirect_to podcasts_path
   end
 
   private

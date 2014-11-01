@@ -1,1 +1,17 @@
+header
+  h1
+    = @podcast.title
+  h2
+    = @podcast.sub_title
+
+section
+  .pod_image
+    = image_tag(@podcast.itunes_image, size: "150x150")
+  .pod_url
+    = link_to @podcast.url
+  .atom_link
+    = link_to 'RSS', @podcast.atom_link
+
+= link_to 'Delete', podcast_path(@podcast), method: :delete, data: { confirm: 'Are you sure?' }
+br
 = link_to 'back', podcasts_path
