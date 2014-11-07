@@ -16,3 +16,101 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+header {
+  float: left;
+  width: 100%;
+}
+
+.main-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  float: left;
+}
+
+.nested-wrapper {
+  float: right;
+  width: 75%;
+  form {
+    width: 50%;
+    .field {
+
+    }
+    .action {
+      float: right;
+      margin-top: 21px;
+      a {
+        margin-left: 11px;
+      }
+    }
+  }
+  table {
+    th {
+      background-color: rgba(246, 250, 236, 0.88);
+    }
+  }
+  p {
+    width: 75%;
+  }
+}
+
+// Form errors
+#error_explanation {
+  padding: 15px 0;
+  padding-left: 60px;
+  padding-right: 60px;
+  background-color: #fcf8e3;
+  border: 1px solid #ebccd1;
+}
+
+.catpod-txt-center {
+  text-align: center;
+}
+
+.field_with_errors {
+  @extend .has-error;
+}
+
+
+.pod-info-block {
+  margin-top: 40px;
+  border-bottom: 1px solid #eee;
+  .podcast-logo {
+    float: left;
+    width: 115px;
+    height: 115px;
+    div {
+      margin-top: 5px;
+      a {
+        margin-left: 3px;
+      }
+    }
+    img {
+      width: 105px;
+      height: 105px;
+      border: 1px solid rgba(153, 153, 153, 0.5);
+    }
+    // border: 1px solid #000;
+  }
+  .podcast-desc {
+    margin-bottom: 10px;
+    h3 {
+      margin: 0 0 10px;
+    }
+    p {
+      margin-left: 115px;
+      font-size: 12px;
+      font-style: italic;
+      min-height: 100px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+  }
+}
+
+footer {
+  float: left;
+  width: 100%;
+  display: none;
+}

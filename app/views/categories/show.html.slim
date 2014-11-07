@@ -1,4 +1,11 @@
-p 
-  = @category.title
-p
-  = @category.description
+.page-header
+  h2 
+    = @category.title
+  
+div
+  p
+    = @category.description
+
+.action.btn-group
+  = link_to 'Edit', edit_category_path(@category), class: 'btn btn-success'
+  = link_to 'Back', categories_path, class: 'btn btn-default'

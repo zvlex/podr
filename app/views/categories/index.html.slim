@@ -1,18 +1,28 @@
-table
+.page-header
+  h2 
+    | Categories &nbsp;
+    = link_to 'New', new_category_path, class: 'btn btn-success' 
+
+table.table
+  tr
+    th Title
+    th Description
+    th.catpod-txt-center Podcasts
+    th colspan="3"
+
   - @categories.each do |category|
     tr
       td
         = category.title
       td
         = category.description
+      td.catpod-txt-center
+        span.badge
+          = category.podcasts.count
       td
         = link_to 'Show', category_path(category)
       td
-        = link_to 'Edit', edit_category_path(category)
+        = link_to 'Edit', edit_category_path(category) 
       td
         = link_to 'Delete', category_path(category), method: :delete, 
-                            data: { confirm: 'Are you sure?'}
-.action
-  = link_to 'Create category', new_category_path 
-
-
+                            data: { confirm: 'Are you sure?' }

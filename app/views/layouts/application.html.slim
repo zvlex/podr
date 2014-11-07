@@ -7,6 +7,7 @@ html
     = csrf_meta_tags
   body
     = render 'layouts/header'
-    .container
-      == yield
+    section.main-wrapper.container
+      section.nested-wrapper
+        == yield
     = render 'layouts/footer'
