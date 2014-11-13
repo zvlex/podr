@@ -11,16 +11,15 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @podcast = FetchPodcast.new(podcast_params, current_user).fetch_podcast_info
-    if @podcast.valid?
+    if @podcast.errors.any?
+      render 'new'
+    else
       flash[:success] = 'Successfully added'
       redirect_to @podcast
-    else
-      render 'new'
     end
   end
 
