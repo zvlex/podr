@@ -1,37 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe CategoriesController, :type => :controller do
-  before(:each) do
-    create_user_and_sign_in
-  end
+  let(:category) { create(:category, user_id: @user.id) }
+
+  before(:each) { create_user_and_sign_in }
 
   def create_user_and_sign_in
-    user = build(:user)
-    user.save(validate: false)
-    sign_in(user)
+    @user = build(:user)
+    @user.save(validate: false)
+    sign_in(@user)
   end
 
   describe "GET #index" do
+    before(:each) { get :index }
+
     it "shows list of categories" do
-      @category = create(:category)
-      get :index
-      expect(assigns(:categories)).to match_array([@category])
+      expect(assigns(:categories)).to match_array([category])
     end
 
     it "render the :index template" do
-      get :index
       expect(response).to render_template(:index)
     end
   end
 
   describe "GET #show" do
-    before(:each) do
-      @category = create(:category)
-      get :show, id: @category
-    end
+    before(:each) { get :show, id: category }
 
-    it "assigns the requested category to @category" do
-      expect(assigns(:category)).to eq(@category)
+    it "assigns the requested category to category" do
+      expect(assigns(:category)).to eq(category)
     end
 
     it "render the :show template" do
@@ -40,25 +36,22 @@ RSpec.describe CategoriesController, :type => :controller do
   end
 
   describe "GET #new" do
-    it "assigns a new Category to @category" do
-      get :new
+    before(:each) { get :new }
+
+    it "assigns a new Category to category" do
       expect(assigns(:category)).to be_a_new(Category)
     end
 
     it "render the :new template" do
-      get :new
       expect(response).to render_template(:new)
     end
   end
 
   describe "GET #edit" do
-    before(:each) do
-      @category = create(:category)
-      get :edit, id: @category
-    end
+    before(:each) { get :edit, id: category }
 
-    it "assigns the requested category to @category" do
-      expect(assigns(:category)).to eq(@category)
+    it "assigns the requested category to category" do
+      expect(assigns(:category)).to eq(category)
     end
 
     it "render the :edit template" do
@@ -100,40 +93,36 @@ RSpec.describe CategoriesController, :type => :controller do
   end
 
   describe "PUT #update" do
-    before(:each) do
-      @category = create(:category)
-    end
-
     it "locates the requested @category" do
-      put :update, id: @category, category: attributes_for(:category)
-      expect(assigns(:category)).to eq(@category)
+      put :update, id: category, category: attributes_for(:category)
+      expect(assigns(:category)).to eq(category)
     end
 
     context "with valid attributes" do
       it "changes @category attributes" do
-        put :update, id: @category,
+        put :update, id: category,
           category: attributes_for(:category, title: 'Linux', description: 'UbuntuMate')
-        @category.reload
-        expect(@category.title).to eq('Linux')
-        expect(@category.description).to eq('UbuntuMate')
+        category.reload
+        expect(category.title).to eq('Linux')
+        expect(category.description).to eq('UbuntuMate')
       end
 
       it "redirects to the updated category" do
-        put :update, id: @category, category: attributes_for(:category)
-        expect(response).to redirect_to(@category)
+        put :update, id: category, category: attributes_for(:category)
+        expect(response).to redirect_to(category)
       end
     end
 
     context "with invalid attributes" do
-      it "does not changes @category attributes" do
-        put :update, id: @category, 
+      it "does not changes category attributes" do
+        put :update, id: category, 
           category: attributes_for(:category, title: nil, description: nil)
-        expect(@category.title).to_not eq(nil)
-        expect(@category.description).to_not eq(nil)
+        expect(category.title).to_not eq(nil)
+        expect(category.description).to_not eq(nil)
       end
 
       it "re-renders the :edit template" do
-        put :update, id: @category,
+        put :update, id: category,
           category: attributes_for(:invalid_category)
         expect(response).to render_template(:edit)
       end   
@@ -142,10 +131,10 @@ RSpec.describe CategoriesController, :type => :controller do
 
   describe "DELETE #destroy" do
     before(:each) do
-      @category = create(:category)
+      @category = create(:category, user_id: @user.id)
     end
 
-    it "deletes the message" do
+    it "deletes the category" do
       expect{
         delete :destroy, id: @category
       }.to change(Category, :count).by(-1)
