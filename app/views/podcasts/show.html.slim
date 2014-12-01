@@ -8,6 +8,7 @@
   .podcast-desc
     h3.rss-icon
       = link_to @podcast.title, @podcast.url
+      = link_to '', { controller: 'podcasts', action: "check_for_new_items", id: @podcast,  }, class: 'refresh-pod glyphicon glyphicon-refresh'
     p
       = strip_tags(@podcast.sub_title)
 

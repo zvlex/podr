@@ -1,5 +1,5 @@
 - if feed_item.listened
-    = link_to ' Listened', { :controller => :podcasts, action: :change_status, id: feed_item.id },  class: 'pod_listened btn btn-default', remote: true
+    = link_to ' Listened', { :controller => :podcasts, action: :change_status, id: feed_item.id },  class: 'pod_listened label label-default', remote: true
 - else
     = link_to ' New', { :controller => :podcasts, action: :change_status, id: feed_item.id },
-      class: 'pod_new btn btn-success', remote: true
+      class: 'pod_new label label-success', remote: true

@@ -5,7 +5,7 @@ class PodcastsController < ApplicationController
 
   def show
     @podcast = current_user.podcasts.find(params[:id])
-    @feed_items = current_podcast.feed_items.find_each
+    @feed_items = current_podcast.feed_items.order('published_at DESC')
   end
 
   def new
@@ -39,6 +39,12 @@ class PodcastsController < ApplicationController
     end
   end
 
+  def check_for_new_items
+    if ParseEntries.new(current_podcast.atom_link, current_podcast).entries
+      redirect_to current_podcast
+    end
+  end
+
   def update
     @podcast = Podcast.find(params[:id])
     if @podcast.update(podcast_params)
@@ -61,7 +67,11 @@ class PodcastsController < ApplicationController
     end
 
     def current_podcast
-      current_user.podcasts.find(@podcast.id)
+      if params[:id]
+        current_user.podcasts.find(params[:id])
+      else
+        current_user.podcasts.find(@podcast.id)
+      end
     end
 
     def parse_entries

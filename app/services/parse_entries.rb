@@ -18,7 +18,7 @@ class ParseEntries < FetchPodcast
               else
                 item.enclosure_url                
               end
-      # raise item.inspect  
+
       @podcast.feed_items.where(entry_id: item.entry_id).first_or_create do |i|
         i.title = item.title
         i.summary = item.summary

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :podcasts do
     collection do 
       get :change_status
+      get :check_for_new_items
     end
   end
   # Example resource route with options:
