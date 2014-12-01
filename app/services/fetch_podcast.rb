@@ -9,6 +9,7 @@ class FetchPodcast
     end
   end
 
+
   def determine_type(raw_page)
     Feedjira::Feed.determine_feed_parser_for_xml(raw_page)
   end

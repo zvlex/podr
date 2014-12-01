@@ -1,3 +1,109 @@
 // Place all the styles related to the Podcasts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.pod-info-block {
+  margin-top: 40px;
+  border-bottom: 1px solid #eee;
+  .podcast-logo {
+    float: left;
+    width: 115px;
+    height: 115px;
+    div {
+      margin-top: 5px;
+      a {
+        margin-left: 3px;
+      }
+    }
+    img {
+      width: 105px;
+      height: 105px;
+      border: 1px solid rgba(153, 153, 153, 0.5);
+    }
+    // border: 1px solid #000;
+  }
+  .podcast-desc {
+    margin-bottom: 10px;
+    h3 {
+      margin: 0 0 10px;
+    }
+    p {
+      margin-left: 115px;
+      font-size: 12px;
+      font-style: italic;
+      min-height: 100px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+  }
+}
+
+.podcast-items {
+  margin-top: 15px;
+}
+
+.pod-block-wrapper {
+  background-color: #F8F8F8 !important;
+  padding-top: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  padding-bottom: 10px !important;
+
+  .pod-block-status {
+    float: right;
+    a {
+      font-weight: normal;
+    }
+  }
+  .pod-block-title {
+    padding-top: 25px;
+    h1 {
+      font-family: 'ModernH';
+      font-size: 21px;
+      a {
+      }
+    }
+  }
+  .pod-block-audio {
+    margin-top: 25px;
+    audio {
+      width: 100%;
+    }
+  }
+  .pod-block-download {
+    float: left;
+    .date {
+      padding-left: 5px;
+      font-size: 16px;
+      font-family: 'Alegreya Sans';
+      font-weight: bold;
+      border-left: 1px solid #000;
+    }
+    .download {
+      padding-right: 5px;
+      a { 
+        font-size: 13px;
+        color: #990000;
+      }
+    }
+  }
+
+  fieldset {
+    border: none;
+    margin: 0 2px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    legend {
+      width: 100%;
+    }
+  }
+  
+  .sn-dropdown {
+  }
+
+  .shownotes {
+    display: none;  
+  }
+}

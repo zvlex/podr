@@ -1,0 +1,20 @@
+- @feed_items.each do |feed_item|
+    .pod-block-wrapper.jumbotron
+      .pod-block-download
+        span.download
+          = link_to '', feed_item.image, class: 'glyphicon glyphicon-download-alt'
+        span.date
+          = feed_item.published_at.strftime('%d-%m-%Y')
+
+      .pod-block-status
+        = render 'feed_status', feed_item: feed_item
+      .pod-block-title
+        h1
+          = link_to feed_item.title, feed_item.url
+      .pod-block-audio
+        audio(controls loop)
+          source src =feed_item.image
+      fieldset
+        legend.sn-dropdown.label.label-default Show Notes
+        .shownotes
+          = raw feed_item.summary

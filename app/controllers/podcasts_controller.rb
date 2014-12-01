@@ -5,6 +5,7 @@ class PodcastsController < ApplicationController
 
   def show
     @podcast = current_user.podcasts.find(params[:id])
+    @feed_items = current_podcast.feed_items.find_each
   end
 
   def new
@@ -19,7 +20,22 @@ class PodcastsController < ApplicationController
       render 'new'
     else
       flash[:success] = 'Successfully added'
+      parse_entries
       redirect_to @podcast
+    end
+  end
+
+  def change_status
+    @podcast = FeedItem.find(params[:id])
+    if @podcast.listened
+      @podcast.listened = false
+    else
+      @podcast.listened = true
+    end
+    respond_to do |format|
+      if @podcast.save
+        format.js 
+      end
     end
   end
 
@@ -42,5 +58,14 @@ class PodcastsController < ApplicationController
   private
     def podcast_params
       params.require(:podcast).permit(:url, :category_id)
+    end
+
+    def current_podcast
+      current_user.podcasts.find(@podcast.id)
+    end
+
+    def parse_entries
+      @entries = ParseEntries.new(@podcast.atom_link, current_podcast)
+      @entries.entries
     end
 end

@@ -1,0 +1,4 @@
+$('.pod-block-status').on("ajax:success", function(e, data, status, xhr) {
+  $(this).empty();
+  $("<%= escape_javascript(render 'feed_status', feed_item: @podcast) %>").appendTo($(this));
+});
