@@ -12,7 +12,9 @@ class PodcastsController < ApplicationController
     @podcast = Podcast.new
   end
 
-  def edit; end
+  def edit
+    @podcast = current_user.podcasts.find(params[:id])
+  end
 
   def create
     @podcast = FetchPodcast.new(podcast_params, current_user).fetch_podcast_info
@@ -46,7 +48,7 @@ class PodcastsController < ApplicationController
   end
 
   def update
-    @podcast = Podcast.find(params[:id])
+    @podcast = current_user.podcasts.find(params[:id])
     if @podcast.update(podcast_params)
       flash[:success] = 'Successfully updated'
       redirect_to @podcast

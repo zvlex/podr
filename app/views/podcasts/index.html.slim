@@ -1,6 +1,30 @@
-= link_to 'Add Podcast', new_podcast_path, class: 'btn btn-success'
-
+.page-header
+  h2 
+    | Podcasts &nbsp;
+    = link_to 'Add Podcast', new_podcast_path, class: 'btn btn-success'
 .pod
-  - @podcasts.each do |podcast|
-    div
-      = link_to podcast.title, podcast_path(podcast)
+  table.table
+    tr
+      th Title
+      th Unread
+      th Last Updated
+      th colspan="3" Actions
+
+    - @podcasts.each do |podcast|
+      tr
+        td
+          = link_to podcast.title, podcast_path(podcast)
+        td
+          span.badge
+            = count_unread(podcast)
+        td
+            = published_at(podcast).strftime('%d-%m-%Y')
+
+        td
+          = link_to 'Show', podcast_path(podcast)
+        td
+          = link_to 'Edit', edit_podcast_path(podcast) 
+        td
+          = link_to 'Delete', podcast_path(podcast), method: :delete, 
+                            data: { confirm: 'Are you sure?' }
+          
