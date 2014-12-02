@@ -73,9 +73,40 @@ header {
   @extend .has-error;
 }
 
-
+// Footer
 footer {
   float: left;
   width: 100%;
   display: none;
+}
+
+// Menu
+.menu-wrapper {
+  margin-top: 18px;
+  float: left;
+  width: 25%;
+  nav {
+    .unread {
+      margin-left: 3px;
+      font-size: 8px;
+    }
+    ul.nested {
+      padding-left: 5px;
+      li {
+        a {
+          margin-top: 2px;
+        }
+      }
+    }
+    ul {
+      padding-left: 5px;
+      li {
+        list-style: none;
+        h1 {
+          font-size: 15px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }

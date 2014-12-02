@@ -8,6 +8,8 @@ html
   body
     = render 'layouts/header'
     section.main-wrapper.container
+      .menu-wrapper
+        = render 'layouts/menu'
       section.nested-wrapper
         == yield
     = render 'layouts/footer'
