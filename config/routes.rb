@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     collection do 
       get :change_status
       get :check_for_new_items
+      get :mark_as_listened
     end
   end
   # Example resource route with options:

@@ -12,7 +12,10 @@
     p
       = strip_tags(@podcast.sub_title)
 
-.podcast-items
+.podcast-actions
+    = link_to 'Mark all as listened', { controller: 'podcasts', action: 'mark_as_listened', id: @podcast.id }, class: 'label label-default'
+
+.podcast-items 
   = render 'frame'
   br
   = link_to 'Back', podcasts_path, class: 'btn btn-default'

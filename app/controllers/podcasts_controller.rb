@@ -1,6 +1,6 @@
 class PodcastsController < ApplicationController
   def index
-    @podcasts = current_user.podcasts
+    @podcasts = current_user.podcasts.order('created_at DESC')
   end
 
   def show
@@ -45,6 +45,16 @@ class PodcastsController < ApplicationController
     if ParseEntries.new(current_podcast.atom_link, current_podcast).entries
       redirect_to current_podcast
     end
+  end
+
+  def mark_as_listened
+    current_pod = current_user.podcasts.find(params[:id])
+    @pod = current_pod.feed_items.where(listened: false)
+    @pod.each do |p|
+      p.listened = true
+      p.save 
+    end
+    redirect_to current_pod
   end
 
   def update
