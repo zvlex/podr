@@ -4,7 +4,7 @@
 
 
 
-$(document).ready ->
+ready = ->  
   $('.sn-dropdown').click ->
       shownotes = $(this).next('.shownotes')
       fieldset =  $(this).parent('fieldset')
@@ -14,5 +14,5 @@ $(document).ready ->
       else
         fieldset.css('border', 'none')
         shownotes.slideUp()
-      return
-  return
+$(document).ready(ready)
+$(document).on('page:load', ready)

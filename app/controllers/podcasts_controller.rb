@@ -5,7 +5,7 @@ class PodcastsController < ApplicationController
 
   def show
     @podcast = current_user.podcasts.find(params[:id])
-    @feed_items = current_podcast.feed_items.order('published_at DESC')
+    @feed_items = current_podcast.feed_items.order('published_at DESC').page(params[:page]).per(3)
   end
 
   def new
