@@ -18,6 +18,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
 gem 'slim-rails'
 gem 'feedjira'
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails'
