@@ -1,12 +1,13 @@
-nav
-  - category_list.each do |category|
-    ul
-      li
-        h1
-          = category.title
-        ul.nested  
-          - podcast_list(category).each do |podcast|
-            li
-              = link_to podcast.title, podcast
-              span.unread.label.label-danger
-                = count_unread(podcast)
+- if current_user
+  nav
+    - category_list.each do |category|
+      ul
+        li
+          h1
+            = category.title
+          ul.nested  
+            - podcast_list(category).each do |podcast|
+              li
+                = link_to podcast.title, podcast
+                span.unread.label.label-danger
+                  = count_unread(podcast)
