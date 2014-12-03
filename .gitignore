@@ -22,6 +22,7 @@
 
 # Ignore config .yml files
 config/*.yml
+!config/secrets.yml
 
 # Ignore rvm gemset and .rspec
 /.ruby-version
