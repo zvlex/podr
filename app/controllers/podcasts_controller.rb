@@ -1,4 +1,6 @@
 class PodcastsController < ApplicationController
+  before_action :verify_access, only: [:show, :edit, :update, :destroy]
+  
   def index
     @podcasts = current_user.podcasts.order('created_at DESC')
   end
@@ -89,5 +91,10 @@ class PodcastsController < ApplicationController
     def parse_entries
       @entries = ParseEntries.new(@podcast.atom_link, current_podcast)
       @entries.entries
+    end
+
+    def verify_access
+      @podcast = current_user.podcasts.find_by_id(params[:id])
+      redirect_to podcasts_path if @podcast.nil?
     end
 end
