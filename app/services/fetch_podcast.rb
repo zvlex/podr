@@ -50,8 +50,14 @@ class FetchPodcast
             return @podcast
           end
         else
-          feed_rss_link = full_hyperlink(search_rss_hyperlink(raw))
-          response = response_uri(feed_rss_link)
+          hyperlink = search_rss_hyperlink(raw)
+          if hyperlink
+            feed_rss_link = full_hyperlink(hyperlink)
+            response = response_uri(feed_rss_link)
+          else
+            @podcast.errors.add(:url, 'not able to parse, not podcast')
+            return @podcast
+          end
 
           if response.nil?
             @podcast.errors.add(:url, 'wrong rss link')
@@ -128,7 +134,6 @@ class FetchPodcast
     rss_value  = link.call(page, "link", "type", "application/rss+xml")
     atom_value = link.call(page, "link", "type", "application/atom+xml")
     href_value = link.call(page, "a", "class", "rss")
-
     rss_value || atom_value || href_value
   end
 end
