@@ -31,11 +31,7 @@ class PodcastsController < ApplicationController
 
   def change_status
     @podcast = FeedItem.find(params[:id])
-    if @podcast.listened
-      @podcast.listened = false
-    else
-      @podcast.listened = true
-    end
+    @podcast.listened = !@podcast.listened
     respond_to do |format|
       if @podcast.save
         format.js 
