@@ -28,6 +28,7 @@ config/*.yml
 /.ruby-version
 /.ruby-gemset
 /.rspec
+/.projectile
 
 # KDE Dolphin view config 
 .directory
