@@ -1,3 +1,4 @@
+# coding: utf-8
 class FetchPodcast
   include ActiveModel::Validations
 
@@ -8,7 +9,6 @@ class FetchPodcast
       pod.url = podcast_params[:url]
     end
   end
-
 
   def determine_type(raw_page)
     Feedjira::Feed.determine_feed_parser_for_xml(raw_page)
@@ -31,12 +31,16 @@ class FetchPodcast
     Feedjira::Parser::ITunesRSS.able_to_parse?(raw)
   end
 
+  def add_error_message(sym, &block)
+    @podcast.errors.add(sym, block)
+    @podcast
+  end
+
   def fetch_podcast_info
     if @podcast.valid?
       response = response_uri(@podcast.url)
       if response.nil?
-        @podcast.errors.add(:url, 'unknown host')
-        return @podcast
+        return add_error_message(:url) { 'unknown host' }
       else
         raw = fetch_raw(@podcast.url)
         feed_type = determine_type(raw)
@@ -46,8 +50,7 @@ class FetchPodcast
             feed = feed_type.parse(raw)
             create_podcast(feed, feed_type: feed_type, raw: raw, link: @podcast.url)
           else
-            @podcast.errors.add(:url, 'not able to parse, not podcast')
-            return @podcast
+            return add_error_message(:url) { 'not able to parse, not podcast' }
           end
         else
           hyperlink = search_rss_hyperlink(raw)
@@ -55,13 +58,11 @@ class FetchPodcast
             feed_rss_link = full_hyperlink(hyperlink)
             response = response_uri(feed_rss_link)
           else
-            @podcast.errors.add(:url, 'not able to parse, not podcast')
-            return @podcast
+            return add_error_message(:url) { 'not able to parse, not podcast' }
           end
 
           if response.nil?
-            @podcast.errors.add(:url, 'wrong rss link')
-            return @podcast
+            return add_error_message(:url) { 'wrong rss link' }
           else
             raw_page = fetch_raw(feed_rss_link)
             if able_to_parse?(raw_page)
@@ -69,8 +70,7 @@ class FetchPodcast
               feed = feed_type.parse(raw_page)
               create_podcast(feed, feed_type: feed_type, raw: raw_page, link: feed_rss_link)
             else
-              @podcast.errors.add(:url, 'not able to parse, not podcast')
-              return @podcast
+              return add_error_message(:url) { 'not able to parse, not podcast' }
             end
           end
         end
@@ -137,3 +137,4 @@ class FetchPodcast
     rss_value || atom_value || href_value
   end
 end
+
